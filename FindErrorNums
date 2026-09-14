@@ -1,0 +1,16 @@
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        dupl = -1
+        mis = -1
+        for i in range(1,len(nums)): 
+            if nums[i] == nums[i-1] :
+                dupl = nums[i]
+            if (nums[i] - nums[i-1]) >1:
+                mis = nums[i]-1
+        if mis == -1:
+            if nums[0] != 1:
+                mis = 1
+            else:
+                mis = len(nums)
+        return [dupl, mis]
