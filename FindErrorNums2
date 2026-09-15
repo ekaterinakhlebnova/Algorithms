@@ -1,0 +1,14 @@
+#альтернативный вариант решения задачи на поиск повтора и отсутствующего числа. Используется словарь
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        counts = {i:0 for i in range(1, len(nums)+1)}
+        dupl = -1
+        mis = -1
+        for i in nums: 
+            counts[i]+=1
+        for key, value in counts.items():
+            if value == 2:
+                dupl = key
+            if value == 0:
+                mis = key
+        return [dupl, mis]
