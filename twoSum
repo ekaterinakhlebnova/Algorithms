@@ -1,0 +1,18 @@
+#Вам дан массив целых чисел nums и целое число target. Верните индексы этих двух чисел так, чтобы их сумма равнялась target .
+#Можно предположить, что для каждого входного значения существует ровно одно решение , и нельзя использовать один и тот же элемент дважды.
+class Solution:
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
+        d = dict()
+        for i in range(len(nums)):
+            d[nums[i]] = i
+        for i in range(len(nums)):
+            if (target -nums[i]) in d.keys() and i!=d[target-nums[i]]:
+                return [i, d[target-nums[i]]]
+
+
+
+#var2
+for i in range(len(nums)-1):
+            for j in range(len(nums)-1, 0,-1):
+                if nums[i] + nums[j] == target and i!=j:
+                    return [i, j]
