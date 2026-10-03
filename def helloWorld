@@ -1,0 +1,12 @@
+class Solution:
+    def helloWorld(self) -> str:
+        """
+        Верните строку "Hello world!"
+        """
+        return 'Hello world!'
+
+if __name__ == "__main__":
+    import sys
+    data = sys.stdin.read().strip()
+    sol = Solution()
+    print(sol.helloWorld())
