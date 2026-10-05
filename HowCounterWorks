@@ -1,0 +1,8 @@
+# Метод Counter встроен в модуль collections. По сути выполняется это, только на языке С:
+
+counts = {}
+for num in nums:
+    if num in counts:
+        counts[num] += 1
+    else:
+        counts[num] = 1
