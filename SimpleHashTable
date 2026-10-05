@@ -1,0 +1,47 @@
+class SimpleHashTable:
+    def __init__(self, size=10):
+        self.size = size
+        # Создаем "бакеты" — список из 10 пустых списков
+        self.buckets = [[] for _ in range(self.size)]
+
+    def _get_bucket_index(self, key):
+        """Наша хэш-функция + приведение к индексу бакета"""
+        # Используем встроенный хэш Python и берем остаток от деления на размер массива
+        hash_value = hash(key)
+        bucket_index = abs(hash_value) % self.size
+        return bucket_index
+
+    def set_value(self, key, value):
+        """Положить значение по ключу"""
+        index = self._get_bucket_index(key)
+        
+        # Проверяем, нет ли уже такого ключа (обновляем, если есть)
+        for kv in self.buckets[index]:
+            if kv[0] == key:
+                kv[1] = value
+                return
+        
+        # Если ключа нет, добавляем пару (ключ, значение) в бакет
+        self.buckets[index].append([key, value])
+        print(self.buckets) # выведем для наглядности
+
+    def get_value(self, key):
+        """Быстро достать значение по ключу"""
+        index = self._get_bucket_index(key)
+        
+        # Ищем внутри конкретного бакета
+        for kv in self.buckets[index]:
+            if kv[0] == key:
+                return kv[1]
+        return None  # Если ничего не нашли
+
+# --- Демонстрация работы ---
+
+table = SimpleHashTable(size=5) # создадим таблицу всего на 5 бакетов
+
+# Добавляем данные
+table.set_value("Ivan", "Senior Developer")
+table.set_value("Anna", "QA Engineer")
+
+# Смотрим, как они мгновенно достаются
+print("Где работает Ivan?", table.get_value("Ivan"))
