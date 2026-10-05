@@ -1,0 +1,4 @@
+'''Условие: Дан массив чисел. Верните True, если какое-то число встречается в массиве хотя бы дважды, и False, если все элементы уникальны.'''
+class Solution:
+    def containsDuplicate(self, nums: list[int]) -> bool:
+        return len(nums) != len(set(nums))
