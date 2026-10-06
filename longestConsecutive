@@ -1,0 +1,19 @@
+'''Дана неотсортированная последовательность целых чисел nums. Верните длину последовательности самых длинных последовательных элементов.
+
+Вам необходимо написать алгоритм, который работает за  O(n) время .'''
+
+class Solution:
+    def longestConsecutive(self, nums: list[int]) -> int:
+        s = set(nums)
+        curr = 0
+        longest = 0
+        
+        for num in s:
+            if num-1 not in s:
+                curr_num = num
+                while curr_num in s:
+                    curr += 1
+                    curr_num += 1
+                longest = max(longest,curr)
+                curr = 0
+        return longest
