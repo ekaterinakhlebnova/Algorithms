@@ -1,0 +1,12 @@
+'''Дан массив целых чисел numsи целое число k. Верните значение, если в массиве true есть два различных индекса i и такие, что и .jnums[i] == nums[j]abs(i - j) <= k'''
+class Solution:
+    def containsNearbyDuplicate(self, nums: list[int], k: int) -> bool:
+        s = set()
+        for i in range(len(nums)):
+            if i>k:
+                s.remove(nums[i-k-1])
+            if nums[i] in s:
+                return True
+            
+            s.add(nums[i]) 
+        return False
