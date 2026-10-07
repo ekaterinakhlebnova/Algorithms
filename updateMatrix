@@ -1,0 +1,32 @@
+'''
+Получив m x n бинарную матрицу mat, верните расстояние до ближайшего элемента 0 в каждой ячейке.
+Расстояние между двумя клетками, имеющими общую грань, равно 1.
+
+ 
+'''
+
+from collections import deque
+class Solution:
+    def updateMatrix(self, mat):
+        ROWS = len(mat)
+        COLS = len(mat[0])
+        queue = deque()
+
+        way = 0
+        for r in range(ROWS):
+            for c in range(COLS):
+                if mat[r][c] == 0:
+                    queue.append((r,c,0))
+                elif mat[r][c] == 1:
+                        mat[r][c] = float('inf')
+        while queue:
+            r, c, way = queue.popleft()
+            direction = [(-1,0), (0,-1), (0,1), (1,0)]
+            for dr,dc in direction:
+                nr = r + dr
+                nc = c + dc
+                if 0<=nr<ROWS and 0<=nc<COLS and mat[nr][nc] > way + 1:
+                    mat[nr][nc] = way + 1
+                    queue.append((nr,nc,way+1))
+
+        return mat
