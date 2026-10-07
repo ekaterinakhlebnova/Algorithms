@@ -1,0 +1,15 @@
+'''
+Вам дано положительное целое число, numсостоящее только из цифр 6и 9.
+
+Верните максимальное число, которое можно получить, изменив не более одной цифры ( 6становится 9, а 9становится 6) .
+
+ '''
+
+class Solution:
+    def maximum69Number(self, num: int)-> int:
+        massive = list(str(num))
+        for i in range(len(massive)):
+            if massive[i] == '6':
+                massive[i] = '9'
+                return int(''.join(massive))
+        return num
