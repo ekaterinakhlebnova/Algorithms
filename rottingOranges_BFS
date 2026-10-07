@@ -1,0 +1,38 @@
+'''Условие:
+Дана матрица grid размера \(M \times N\), где:
+• 0 — пустая клетка,
+• 1 — свежий апельсин,
+• 2 — гнилой апельсин.
+Каждую минуту любой гнилой апельсин заражает своих соседей в 4 направлениях (вверх, вниз, влево, вправо).
+Нужно вернуть минимальное количество минут, через которое все апельсины сгниют. 
+Если это невозможно (какой-то свежий апельсин заблокирован стенами или пустыми клетками и до него не добраться) — верните -1.
+'''
+
+from collections import deque
+class Solution:
+    def orangesRotting(self, grid):
+        ROWS = len(grid)
+        COLS = len(grid[0])
+        queue = deque()
+        fresh_or = 0
+        minutes = 0
+        for r in range(ROWS):  
+            for c in range(COLS):
+                if grid[r][c] == 2:
+                    queue.append((r,c,0))
+                elif grid[r][c] == 1:
+                        fresh_or += 1
+        while queue:
+            r, c, minutes = queue.popleft()
+            direction = [(-1,0), (0,-1), (0,1), (1,0)]
+            for dr,dc in direction:
+                nr = r + dr
+                nc = c + dc
+                if 0<=nr<ROWS and 0<=nc<COLS and grid[nr][nc] == 1:
+                    grid[nr][nc] = 2
+                    queue.append((nr,nc,minutes+1))
+                    fresh_or -= 1
+        if fresh_or == 0:
+            return minutes
+        else:
+            return -1
