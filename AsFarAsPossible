@@ -1,0 +1,31 @@
+'''
+Дана ячейка, n x n grid содержащая только значения 0и 1, где  0представляет воду, а 1представляет сушу. Найдите ячейку с водой, расстояние до которой до ближайшей ячейки с сушей максимально, и верните это расстояние.
+Если в сетке нет ни суши, ни воды, верните -1.
+Суть в том, чтобы сказать: единицы - эпицентры распространения(чего-л), какая клетка последней будет заражена - то и ответ'''
+
+from collections import deque
+class Solution:
+    def maxDistance(self, grid):
+        ROWS = len(grid)
+        COLS = len(grid[0])
+        queue = deque()
+        max_dist = 0
+
+        
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == 1:
+                    queue.append((r,c,max_dist))
+
+        if len(queue) == 0 or len(queue) == ROWS * COLS:
+            return -1
+        d = [(-1,0), (0,-1), (0,1), (1,0)]
+        while queue:
+            r, c, max_dist = queue.popleft()
+            for dr, dc in d:
+                nr = r + dr
+                nc = c + dc
+                if 0 <= nr < ROWS and 0 <= nc < COLS and grid[nr][nc] == 0:
+                    grid[nr][nc] = 1
+                    queue.append((nr,nc, max_dist+1))
+        return max_dist
